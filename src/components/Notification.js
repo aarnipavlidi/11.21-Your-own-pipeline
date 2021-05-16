@@ -1,5 +1,7 @@
+// This exercise has been commented by Aarni Pavlidi, if you have any questions or suggestions with the code,
+// then please contact me by sending email at me@aarnipavlidi.fi <3
 
-import React from 'react'
+import React from 'react'; // Sovellus ottaa "react" nimisen kirjaston käyttöönsä.
 
 const Notification = () => {
   const style = {
@@ -14,4 +16,5 @@ const Notification = () => {
   )
 }
 
+// Viedään (export) alla oleva komponentti (Notification) sovelluksen käytettäväksi, jotta esim. "App.js" tiedosto pystyy suorittamaan kyseiset funktiot.
 export default Notification
