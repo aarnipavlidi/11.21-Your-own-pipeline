@@ -11,22 +11,28 @@ const App = () => { // Sovellus alkaa tästä...
   // Alustetaan muuttuja "anecdotes", joka suorittaa "useSelector(...)" funkion. Tämän avulla päästään
   // käsiksi "storeen" tallennettuun taulukon arvoihin. Lisää tästä täältä: https://react-redux.js.org/api/hooks#useselector
   const anecdotes = useSelector(state => state)
+  console.log(anecdotes.sort((a, b) => b.votes - a.votes))
   // Alustetaan muuttuja "dispatch", joka suorittaa "useDispatch()" funktion. Tämän avulla sovellus
   // pystyy tekemään muutoksia "storeen" tallennettuihin  taulukon arvoihin. Lisää tästä täältä: https://react-redux.js.org/api/hooks#usedispatch
   const dispatch = useDispatch()
 
   // Sovellus renderöi (...) sisällä olevat asiat käyttäjälle näkyviin.
+  // Tehtävää: "6.5*: anekdootit, step3" varten, olemme muokanneet koodia hieman, niin että
+  // sovellus renderöi arvot äänten ("votes" objektin) mukaisessa suuruusjärjestyksessä.
+  // Funtion "sort(...)" sisältä löytyy paremetrit => "a" sekä "b", missä "a" tarkoittaa
+  // ensimmäistä elementtiä vertailua varten ja "b" toista elementtiä vertailua varten.
+  // Kun "vertailu" on luotu, niin luodaan sen pohjalta uusi taulukko "map(...)" funktion
+  // avulla, joka renderöi käyttäjälle näkyviin sen hetkiset arvot suuruusjärjestyksessä.
   return (
     <div>
-      <h2>Anecdotes</h2>
-      {anecdotes.map(anecdote =>
-        <div key={anecdote.id}>
+      <h1>Anecdotes</h1>
+      {anecdotes.sort((a, b) => b.votes - a.votes).map(results =>
+        <div key={results.id}>
           <div>
-            {anecdote.content}
+            <h2>{results.content}</h2>
           </div>
           <div>
-            has {anecdote.votes}
-            <button onClick={() => dispatch(likeValueButton(anecdote.id))}>vote</button>
+            <p>Content has been voted for total of {results.votes} times <button onClick={() => dispatch(likeValueButton(results.id))}>vote</button></p>
           </div>
         </div>
       )}
