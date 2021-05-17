@@ -5,7 +5,7 @@ import React from 'react'; // Sovellus ottaa "react" nimisen kirjaston käyttö�
 import { useSelector, useDispatch } from 'react-redux' // Sovellus ottaa "useSelector" ja "useDispatch" funktiot käyttöönsä => "react-redux" kirjaston kautta.
 import { likeValueButton } from './reducers/anecdoteReducer' // Sovellus ottaa "likeValueButton" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 
-import NewValueForm from './components/NewValueForm' // Sovellus hyödyntää "NewValueForm" (NewValueForm.js) nimistä komponenttia, joka sijaitsee => "./components/NewValueForm".
+import AnecdoteForm from './components/AnecdoteForm' // Sovellus hyödyntää "AnecdoteForm" (AnecdoteForm.js) nimistä komponenttia, joka sijaitsee => "./components/AnecdoteForm".
 
 const App = () => { // Sovellus alkaa tästä...
   // Alustetaan muuttuja "anecdotes", joka suorittaa "useSelector(...)" funkion. Tämän avulla päästään
@@ -36,7 +36,7 @@ const App = () => { // Sovellus alkaa tästä...
           </div>
         </div>
       )}
-      <NewValueForm />
+      <AnecdoteForm />
     </div>
   )
 } // Sovellus loppuu tähän...

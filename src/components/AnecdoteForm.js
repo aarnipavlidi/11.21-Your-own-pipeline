@@ -5,7 +5,7 @@ import React from 'react'; // Komponentti ottaa "react" nimisen kirjaston käytt
 import { useDispatch } from 'react-redux' // Komponentti ottaa "useDispatch" funktion käyttöönsä => "react-redux" kirjaston kautta.
 import { createNewValue } from '../reducers/anecdoteReducer' // Komponentti ottaa "createNewValue" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 
-const NewValueForm = () => { // Alustetaan "NewValueForm" niminen komponentti, joka suorittaa {...} sisällä olevat asiat.
+const AnecdoteForm = () => { // Alustetaan "AnecdoteForm" niminen komponentti, joka suorittaa {...} sisällä olevat asiat.
   // Alustetaan muuttuja "dispatch", joka suorittaa "useDispatch()" funktion. Tämän avulla sovellus
   // pystyy tekemään muutoksia "storeen" tallennettuihin  taulukon arvoihin. Lisää tästä täältä: https://react-redux.js.org/api/hooks#usedispatch
   const dispatch = useDispatch()
@@ -33,5 +33,5 @@ const NewValueForm = () => { // Alustetaan "NewValueForm" niminen komponentti, j
   )
 }
 
-// Viedään (export) alla oleva komponentti (NewValueForm) sovelluksen käytettäväksi, jotta esim. "App.js" tiedosto pystyy suorittamaan kyseiset funktiot.
-export default NewValueForm
+// Viedään (export) alla oleva komponentti (AnecdoteForm) sovelluksen käytettäväksi, jotta esim. "App.js" tiedosto pystyy suorittamaan kyseiset funktiot.
+export default AnecdoteForm
