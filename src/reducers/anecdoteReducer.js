@@ -62,6 +62,13 @@ const reducer = (state = originalState, action) => {
       results.id !== getCurrentID ? results : updateValue)
   }
 
+  // Jos alla oleva if-ehto toteutuu, niin sovellus suorittaa {...} sisällä olevat asiat.
+  // renderöidään takaisin, siis hetkisen "state" muuttujan taulukko => luomalla kopio
+  // siitä, jonka perään tulee käyttäjän lisämää uusi arvo näkyviin sivulle.
+  if (action.type === 'ADD_NEW_CONTENT') {
+    return [...state, action.data]
+  }
+
   return state
 }
 
@@ -72,6 +79,25 @@ export const likeValueButton = (id) => {
   return {
     type: 'ADD_NEW_LIKE',
     data: { id }
+  }
+}
+
+// Viedään muuttujan "createNewValue" sisältö käytettäväksi, jotta esim. "index.js"
+// tiedosto pystyy hyödyntämään sovelluksen aikana. Aina kun kyseiseen funktioon
+// tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat. Ota myös
+// huomioon, kun luodaan uutta arvoa näkyville sivuun, niin alla oleva muuttuja
+// "content" täytyy olla sama, jos sen muuttaa esim. arvoon => "newContent", niin
+// käyttäjän lisäämää arvoa ei näy sivulla "oikein". Tämä johtuu siitä, että "state"
+// olettaa, että jokaisella arvolla löytyy kolme (3) erilaista objektia eli =>
+// state[0] = [content: xxx, id: xxx, votes: xxxx].
+export const createNewValue = (content) => {
+  return {
+    type: 'ADD_NEW_CONTENT',
+    data: {
+      content,
+      id: generateRandomID(),
+      votes: 0
+    }
   }
 }
 

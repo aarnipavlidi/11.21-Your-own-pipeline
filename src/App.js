@@ -5,6 +5,8 @@ import React from 'react'; // Sovellus ottaa "react" nimisen kirjaston käyttö�
 import { useSelector, useDispatch } from 'react-redux' // Sovellus ottaa "useSelector" ja "useDispatch" funktiot käyttöönsä => "react-redux" kirjaston kautta.
 import { likeValueButton } from './reducers/anecdoteReducer' // Sovellus ottaa "likeValueButton" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 
+import NewValueForm from './components/NewValueForm' // Sovellus hyödyntää "NewValueForm" (NewValueForm.js) nimistä komponenttia, joka sijaitsee => "./components/NewValueForm".
+
 const App = () => { // Sovellus alkaa tästä...
   // Alustetaan muuttuja "anecdotes", joka suorittaa "useSelector(...)" funkion. Tämän avulla päästään
   // käsiksi "storeen" tallennettuun taulukon arvoihin. Lisää tästä täältä: https://react-redux.js.org/api/hooks#useselector
@@ -28,11 +30,7 @@ const App = () => { // Sovellus alkaa tästä...
           </div>
         </div>
       )}
-      <h2>create new</h2>
-      <form>
-        <div><input /></div>
-        <button>create</button>
-      </form>
+      <NewValueForm />
     </div>
   )
 } // Sovellus loppuu tähän...
