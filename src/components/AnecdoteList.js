@@ -5,11 +5,12 @@ import React from 'react'; // Komponentti ottaa "react" nimisen kirjaston käytt
 import { useSelector, useDispatch } from 'react-redux' // Komponentti ottaa "useSelector" ja "useDispatch" funktiot käyttöönsä => "react-redux" kirjaston kautta.
 import { likeValueButton } from '../reducers/anecdoteReducer' // Komponentti ottaa "likeValueButton" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 
-const AnecdoteList = () => {
+const AnecdoteList = () => { // Alustetaan "AnecdoteList" niminen komponentti, joka suorittaa {...} sisällä olevat asiat.
   // Alustetaan muuttuja "anecdotes", joka suorittaa "useSelector(...)" funkion. Tämän avulla päästään
   // käsiksi "storeen" tallennettuun taulukon arvoihin. Lisää tästä täältä: https://react-redux.js.org/api/hooks#useselector
-  const anecdotes = useSelector(state => state)
-  console.log(anecdotes.sort((a, b) => b.votes - a.votes))
+  // Ota myös huomioon, että käytämme alla olevan funktion sisällä => "state.values",
+  // koska olemme asettaneet aikaisemmin storeen (store.js) kyseisen objektin arvon.
+  const anecdotes = useSelector(state => state.values)
   // Alustetaan muuttuja "dispatch", joka suorittaa "useDispatch()" funktion. Tämän avulla sovellus
   // pystyy tekemään muutoksia "storeen" tallennettuihin  taulukon arvoihin. Lisää tästä täältä: https://react-redux.js.org/api/hooks#usedispatch
   const dispatch = useDispatch()
