@@ -5,6 +5,8 @@ import React from 'react'; // Komponentti ottaa "react" nimisen kirjaston käytt
 import { useSelector, useDispatch } from 'react-redux' // Komponentti ottaa "useSelector" ja "useDispatch" funktiot käyttöönsä => "react-redux" kirjaston kautta.
 import { likeValueButton } from '../reducers/anecdoteReducer' // Komponentti ottaa "likeValueButton" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 
+import { showNotificationVoted, hideNotification } from '../reducers/notificationReducer' // Komponentti ottaa "showNotificationVoted" ja "hideNotification" funktiot käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
+
 const AnecdoteList = () => { // Alustetaan "AnecdoteList" niminen komponentti, joka suorittaa {...} sisällä olevat asiat.
   // Alustetaan muuttuja "anecdotes", joka suorittaa "useSelector(...)" funkion. Tämän avulla päästään
   // käsiksi "storeen" tallennettuun taulukon arvoihin. Lisää tästä täältä: https://react-redux.js.org/api/hooks#useselector
@@ -14,6 +16,22 @@ const AnecdoteList = () => { // Alustetaan "AnecdoteList" niminen komponentti, j
   // Alustetaan muuttuja "dispatch", joka suorittaa "useDispatch()" funktion. Tämän avulla sovellus
   // pystyy tekemään muutoksia "storeen" tallennettuihin  taulukon arvoihin. Lisää tästä täältä: https://react-redux.js.org/api/hooks#usedispatch
   const dispatch = useDispatch()
+
+  // Alustetaan muuttuja "voteButton", joka suorittaa {...} sisällä olevat asiat aina kun kyseiseen
+  // funktioon tehdään viittaus. Funktio saa myös käyttöönsä parametrien => "getClickedID" sekä
+  // "getClickedContent" arvot. Ota huomioon, että "getClickedID" on yhtä kuin => "results.id"
+  // ja "getClickedContent" on yhtä kuin => "results.content". Funktion tarkoituksena on toimia
+  // niin, että aina kun käyttäjä äänestää tiettyä tekstiä, niin funktio suorittaa kaksi (2)
+  // => "dispatch(...)" funktiota ja lopuksi 5 sek. kuluttua viimeisen funktion.
+  const voteButton = (getClickedID, getClickedContent) => {
+    dispatch(likeValueButton(getClickedID)) // Sovellus suorittaa funktion "likeValueButton(...)", joka saa parametrin "id" muuttujan arvon.
+    dispatch(showNotificationVoted(getClickedContent)) // Sovellus suorittaa funktion "showNotificationVoted(...)", joka saa parametrin "getContent" muuttujan arvon.
+    console.log('Notification for voting specific content, is now visible! :)') // Tulostetaan kyseinen teksti konsoliin näkyviin.
+    setTimeout(() => { // Kun käyttäjä äänestää tiettyä arvoa, niin kyseinen funktio odottaa 5 sek. ja tämän jälkeen suoritetaan {...} sisällä oleva asia.
+      console.log('Notification is now hidden from the user! :)') // Tulostetaan kyseinen teksti konsoliin näkyviin.
+      dispatch(hideNotification()) // Sovellus suorittaa funktion "hideNotification()", joka piilottaa "popup" viestin pois näkyviltä.
+    }, 5000)
+  }
 
   // Tehtävää: "6.5*: anekdootit, step3" varten, olemme muokanneet koodia hieman, niin että
   // sovellus renderöi arvot äänten ("votes" objektin) mukaisessa suuruusjärjestyksessä.
@@ -31,7 +49,7 @@ const AnecdoteList = () => { // Alustetaan "AnecdoteList" niminen komponentti, j
             <h2>{results.content}</h2>
           </div>
           <div>
-            <p>Content has been voted for total of {results.votes} times <button onClick={() => dispatch(likeValueButton(results.id))}>vote</button></p>
+            <p>Content has been voted for total of {results.votes} times <button onClick={() => voteButton(results.id, results.content)}>vote</button></p>
           </div>
         </div>
       )}

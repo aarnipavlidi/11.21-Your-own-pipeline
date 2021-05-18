@@ -3,7 +3,9 @@
 
 import React from 'react'; // Komponentti ottaa "react" nimisen kirjaston käyttöönsä.
 import { useDispatch } from 'react-redux' // Komponentti ottaa "useDispatch" funktion käyttöönsä => "react-redux" kirjaston kautta.
+
 import { createNewValue } from '../reducers/anecdoteReducer' // Komponentti ottaa "createNewValue" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
+import { showNotificationAdded, hideNotification } from '../reducers/notificationReducer' // Komponentti ottaa "showNotificationAdded" ja "hideNotification" funktiot käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 
 const AnecdoteForm = () => { // Alustetaan "AnecdoteForm" niminen komponentti, joka suorittaa {...} sisällä olevat asiat.
   // Alustetaan muuttuja "dispatch", joka suorittaa "useDispatch()" funktion. Tämän avulla sovellus
@@ -20,6 +22,12 @@ const AnecdoteForm = () => { // Alustetaan "AnecdoteForm" niminen komponentti, j
     const getContent = event.target.newText.value // Alustetaan muuttuja "getContent", joka saa sen hetkisen arvon, minkä käyttäjä laittaa => input:in arvoksi.
     event.target.newText.value = '' // Sovellus tyhjentää kyseisen input:in arvon, sen jälkeen kun yllä oleva muuttuja on saanut arvon.
     dispatch(createNewValue(getContent)) // Sovellus suorittaa funktion "createNewValue(...)", joka saa parametrin "getContent" muuttujan arvon.
+    console.log('Notification for adding new content, is now visible! :)') // Tulostetaan kyseinen teksti konsoliin näkyviin.
+    dispatch(showNotificationAdded(getContent)) // Sovellus suorittaa funktion "showNotificationAdded(...)", joka saa parametrin "getContent" muuttujan arvon.
+    setTimeout(() => { // Kun käyttäjä lisää uuden arvon, niin kyseinen funktio odottaa 5 sek. ja tämän jälkeen suoritetaan {...} sisällä oleva asia.
+      console.log('Notification is now hidden from the user! :)') // Tulostetaan kyseinen teksti konsoliin näkyviin.
+      dispatch(hideNotification()) // Sovellus suorittaa funktion "hideNotification()", joka piilottaa "popup" viestin pois näkyviltä.
+    }, 5000)
   }
 
   // Komponentti renderöi käyttäjälle näkyviin (...) sisällä olevat asiat.
