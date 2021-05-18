@@ -1,40 +1,20 @@
 // This exercise has been commented by Aarni Pavlidi, if you have any questions or suggestions with the code,
 // then please contact me by sending email at me@aarnipavlidi.fi <3
 
-// Alustetaan muuttuja "originalContent", joka toimii taulukkona, joka saa alla olevat tekstit käyttöönsä.
-const originalContent = [
-  'If it hurts, do it more often',
-  'Adding manpower to a late software project makes it later!',
-  'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
-  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
-  'Premature optimization is the root of all evil.',
-  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
-]
-
 const generateRandomID = () => (100000 * Math.random()).toFixed(0) // Alustetaan muuttuja "generateRandomID", joka suorittaa kyseisen funktion, kun siihen tehdään viittaus.
 
-// Alustetaan muuttuja "getValues", joka suorittaa {...} sisällä olevat asiat,
-// aina kun siihen tehdään viittaus. Mmap fuuuttuja saa myös käyttöönsä parametrin
-// "originalText" arvon sekä id:n arvo generoidaan random arvolla.
-const getValues = (originalText) => {
-  return {
-    content: originalText,
-    id: generateRandomID(),
-    votes: 0
-  }
-}
-
-// Alustetaan muuttuja "originalState", joka on yhtä kuin alla oleva funktio.
-// Tarkoituksena on siis, hakea alkuperäiset tekstit muuttujan "originalContent"
-// kautta, ja jokaisen "uniikin" tekstin kohdalla lisätään jokaiselle kolme (3)
-// erilaista objektia eli => "content", "id" sekä "votes".
-const originalState = originalContent.map(getValues)
-
-// Alustetaan muuttuja "counterReducer", joka suorittaa {...} sisällä olevat asiat. Muuttuja saa myös käyttöönsä parametrien => "state" ja "action" arvot.
-const reducer = (state = originalState, action) => {
+// Alustetaan muuttuja "reducer", joka suorittaa {...} sisällä olevat asiat. Muuttuja saa myös käyttöönsä parametrien => "state" ja "action" arvot.
+const reducer = (state = [], action) => {
   // Kun käyttäjä painaa jotain painiketta, niin alla oleva teksti tulostuu
   // konsoliin näkyviin, jonka perään tulee vielä muuttujan objektin arvo.
   console.log('User has given new like to the following id:', action.data)
+
+  // Jos alla oleva if-ehto toteutuu, niin sovellus suorittaa {...} sisällä olevat asiat.
+  // Kun käyttäjä saapuu sovellukseen, niin kyseiseen funktioon eli "showValuesFromDatabase",
+  // joka palauttaa takaisin => "type: SHOW_ALL_VALUES" sekä => "data: values".
+  if (action.type === 'SHOW_ALL_VALUES') {
+    return action.data
+  }
 
   // Jos alla oleva if-ehto toteutuu, niin sovellus suorittaa {...} sisällä olevat asiat.
   if (action.type === 'ADD_NEW_LIKE') {
@@ -70,6 +50,16 @@ const reducer = (state = originalState, action) => {
   }
 
   return state
+}
+
+// Viedään muuttujan "showValuesFromDatabase" sisältö käytettäväksi, jotta esim. "index.js"
+// tiedosto pystyy hyödyntämään sovelluksen aikana. Aina kun kyseiseen funktioon
+// tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat.
+export const showValuesFromDatabase = (values) => {
+  return {
+    type: 'SHOW_ALL_VALUES',
+    data: values
+  }
 }
 
 // Viedään muuttujan "likeValueButton" sisältö käytettäväksi, jotta esim. "index.js"
