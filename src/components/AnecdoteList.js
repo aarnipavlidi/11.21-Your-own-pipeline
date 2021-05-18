@@ -5,7 +5,7 @@ import React from 'react'; // Komponentti ottaa "react" nimisen kirjaston käytt
 import { useSelector, useDispatch } from 'react-redux' // Komponentti ottaa "useSelector" ja "useDispatch" funktiot käyttöönsä => "react-redux" kirjaston kautta.
 import { likeValueButton } from '../reducers/anecdoteReducer' // Komponentti ottaa "likeValueButton" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 
-import { showNotificationVoted, hideNotification } from '../reducers/notificationReducer' // Komponentti ottaa "showNotificationVoted" ja "hideNotification" funktiot käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
+import { showNotificationVoted, hideNotification } from '../reducers/notificationReducer' // Komponentti ottaa "showNotificationVoted" ja "hideNotification" funktiot käyttöönsä, joka sijaitsee => "notificationReducer.js" tiedostossa.
 
 const AnecdoteList = () => { // Alustetaan "AnecdoteList" niminen komponentti, joka suorittaa {...} sisällä olevat asiat.
   // Alustetaan muuttuja "anecdotes", joka suorittaa "useSelector(...)" funkion. Tämän avulla päästään
@@ -40,10 +40,22 @@ const AnecdoteList = () => { // Alustetaan "AnecdoteList" niminen komponentti, j
   // Kun "vertailu" on luotu, niin luodaan sen pohjalta uusi taulukko "map(...)" funktion
   // avulla, joka renderöi käyttäjälle näkyviin sen hetkiset arvot suuruusjärjestyksessä.
 
+  const getFilterValueFromStore = useSelector(state => state.filter) // Alustetaan muuttuja "getFilterValueFromStore", joka on yhtä kuin "storessa" sijaitsevan => "filter" objektin arvo.
+
+  // Tehtävää: "6.12* paremmat anekdootit, step10" varten, olemme muokanneet koodia hieman,
+  // niin että sovellus renderöi lukemat sen mukaan, mitä input:in arvoksi käyttäjä laittaa.
+  // Olemme alustaneet sitä varten muuttujan "getFilterValueFromStore", joka on oletuksena
+  // arvoa '' eli sovellus renderöi kaikki nykyiset arvot näkyviin käyttäjälle. Jos käyttäjä
+  // kirjoittaa jotain input:iin, niin sen hetkinen arvo näkyy storessa => "filter" objektissa.
+  // Haluamme filtteröidä arvot "content" objektin mukaan ja varmistamme, että kyseisen objektin
+  // arvot muutetaan pieniksi kirjaimiksi "toLowerCase()" funktion avulla sekä teemme tämän myös
+  // input:in arvon suhteen. Me teemme tämän sen takia, koska emme voi olettaa haluaako käyttäjä
+  // kirjoittaa inputtiin joko pienillä tai isoilla kirjaimilla! :)
+
   // Komponentti renderöi käyttäjälle näkyviin (...) sisällä olevat asiat.
   return (
     <div>
-      {anecdotes.sort((a, b) => b.votes - a.votes).map(results =>
+      {anecdotes.filter(filterValue => filterValue.content.toLowerCase().includes(getFilterValueFromStore.toLowerCase())).sort((a, b) => b.votes - a.votes).map(results =>
         <div key={results.id}>
           <div>
             <h2>{results.content}</h2>

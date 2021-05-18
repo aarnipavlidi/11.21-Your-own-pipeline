@@ -6,6 +6,7 @@ import React from 'react'; // Sovellus ottaa "react" nimisen kirjaston käyttö�
 import AnecdoteForm from './components/AnecdoteForm' // Sovellus hyödyntää "AnecdoteForm" (AnecdoteForm.js) nimistä komponenttia, joka sijaitsee => "./components/AnecdoteForm".
 import AnecdoteList from './components/AnecdoteList' // Sovellus hyödyntää "AnecdoteList" (AnecdoteList.js) nimistä komponenttia, joka sijaitsee => "./components/AnecdoteList".
 import Notification from './components/Notification' // Sovellus hyödyntää "Notification" (Notification.js) nimistä komponenttia, joka sijaitsee => "./components/Notification".
+import Filter from './components/Filter' // Sovellus hyödyntää "Filter" (Filter.js) nimistä komponenttia, joka sijaitsee => "./components/Filter".
 
 const App = () => { // Sovellus alkaa tästä...
 
@@ -14,8 +15,9 @@ const App = () => { // Sovellus alkaa tästä...
     <div>
       <Notification />
       <h1>Anecdotes</h1>
-      <AnecdoteForm />
+      <Filter />
       <AnecdoteList />
+      <AnecdoteForm />
     </div>
   )
 } // Sovellus loppuu tähän...

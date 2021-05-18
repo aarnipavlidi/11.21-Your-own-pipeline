@@ -6,15 +6,17 @@ import { composeWithDevTools } from 'redux-devtools-extension' // Sovellus ottaa
 
 import anecdoteReducer from './reducers/anecdoteReducer' // Alustetaan muuttuja "anecdoteReducer", joka hyödyntää "anecdoteReducer.js" tiedoston sisältöä sovelluksen aikana.
 import notificationReducer from './reducers/notificationReducer' // Alustetaan muuttuja "notificationReducer", joka hyödyntää "notificationReducer.js" tiedoston sisältöä sovelluksen aikana.
+import filterReducer from './reducers/filterReducer' // Alustetaan muuttuja "filterReducer", joka hyödyntää "filterReducer.js" tiedoston sisältöä sovelluksen aikana.
 
 // Alustetaan muuttuja "reducer", joka hyödyntää "combineReducers(...)" funktiota,
-// kyseisen funktion avulla voidaan yhdistää kaksi (2) nykyistä reduceria eli tässä
-// tapauksessa yhdistämme "anecdoteReducer" sekä "notification" arvot yhteen. Kun
-// sovellus renderöidään, niin konsoliin (redux-devtools) ilmestyy myös kaksi (2)
-// objektia eli => "values" sekä "message".
+// kyseisen funktion avulla voidaan yhdistää kolme (3) nykyistä reduceria eli tässä
+// tapauksessa yhdistämme "anecdoteReducer", "notificationReducer" sekä "filterReducer"
+// arvot yhteen. Kun sovellus renderöidään, niin konsoliin (redux-devtools) ilmestyy
+// myös kolme (3) objektia eli => "values", "message" ja "filter".
 const reducer = combineReducers({
   values: anecdoteReducer,
-  message: notificationReducer
+  message: notificationReducer,
+  filter: filterReducer
 })
 
 // Alustetaan muuttuja "store", joka hyödyntää => "createStore()" funktiota. Funktio käyttää
