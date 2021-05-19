@@ -5,65 +5,42 @@
 const notificationReducer = (state = null, action) => {
 
   // Jos alla oleva if-ehto toteutuu, niin sovellus suorittaa {...} sisällä olevat asiat eli,
-  // aina kun käyttäjä äänestää tiettyä arvoa, niin alla oleva funktio palauttaa storeen, jossa
-  // objektin arvo "message" saa käyttöönsä => "userVoted" sisällä olevan datan.
-  if (action.type === 'SHOW_NOTIFICATION_VOTED') {
-    return action.userVoted
-  }
-
-  // Jos alla oleva if-ehto toteutuu, niin sovellus suorittaa {...} sisällä olevat asiat eli,
-  // aina kun käyttäjä lisää uuden arvon, niin alla oleva funktio palauttaa storeen, jossa
-  // objektin arvo "message" saa käyttöönsä => "userAdded" sisällä olevan datan.
-  if (action.type === 'SHOW_NOTIFICATION_ADDED') {
-    return action.userAdded
+  // aina kun käyttäjä äänestää tiettyä arvoa tai lisää uuden arvon tietokantaan, niin alla
+  // oleva funktio palauttaa storeen => "action.notification":n datan => "message" objektille.
+  if (action.type === 'SHOW_NOTIFICATION') {
+    return action.notification
   }
 
   // Jos alla oleva if-ehto totetuu, niin sovellus suorittaa {...} sisällä olevat asiat eli,
   // aina kun käyttäjä joko lisää uuden arvon tai äänestää tiettyä arvoa, niin tämä kyseinen
   // funktio suoritetaan (setTimeout(...) kautta) eli juuri renderöity "notifikaatio viesti"
-  // piilotetaan käyttäjältä. Tämä johtuu siitä, koska "hideNotification" on yhtä kuin "null".
+  // piilotetaan käyttäjältä. Tämä johtuu siitä, koska "notification" on yhtä kuin "null".
   if (action.type === 'HIDE_NOTIFICATION') {
-    return action.hideNotification
+    return action.notification
   }
 
   return state
 }
 
-// Viedään muuttujan "showNotificationVoted" sisältö käytettäväksi, jotta esim. "index.js"
+// Viedään muuttujan "showNotificationMessage" sisältö käytettäväksi, jotta esim. "index.js"
 // tiedosto pystyy hyödyntämään sovelluksen aikana. Aina kun kyseiseen funktioon
-// tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat. Kun funktio on
-// suoritettu niin storesta löytyy objektien "message" sekä "status" arvot.
-export const showNotificationVoted = (getVotedContent) => {
-  return {
-    type: 'SHOW_NOTIFICATION_VOTED',
-    userVoted: {
-      message: getVotedContent,
-      status: 'voted'
-    }
-  }
-}
-
-// Viedään muuttujan "showNotificationAdded" sisältö käytettäväksi, jotta esim. "index.js"
-// tiedosto pystyy hyödyntämään sovelluksen aikana. Aina kun kyseiseen funktioon
-// tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat. Kun funktio on
-// suoritettu niin storesta löytyy objektien "message" sekä "status" arvot.
-export const showNotificationAdded = (getAddedContent) => {
-  return {
-    type: 'SHOW_NOTIFICATION_ADDED',
-    userAdded: {
-      message: getAddedContent,
-      status: 'added'
-    }
-  }
-}
-
-// Viedään muuttujan "hideNotification" sisältö käytettäväksi, jotta esim. "index.js"
-// tiedosto pystyy hyödyntämään sovelluksen aikana. Aina kun kyseiseen funktioon
-// tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat.
-export const hideNotification = () => {
-  return {
-    type: 'HIDE_NOTIFICATION',
-    hideNotification: null
+// tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat. Ota myös huomioon,
+// että funktio saa käyttöönsä kaksi (2) erilaista paremetrin arvoa eli => "notificationMessage"
+// josta löytyy sen hetkinen viesti mikä halutaan renderöidä käyttäjälle näkyviin sekä
+// => "notificationDuration", jonka avulla määritellään "setTimeout(...)" funktiota
+// varten ajastin, että kuinka kauan "notifikaatio" on näkyvissä käyttäjälle.
+export const showNotificationMessage = (notificationMessage, notificationDuration) => {
+  return async dispatch => {
+    dispatch({
+      type: 'SHOW_NOTIFICATION',
+      notification: notificationMessage
+    })
+    setTimeout(() => {
+      dispatch({
+        type: 'HIDE_NOTIFICATION',
+        notification: null
+      })
+    }, notificationDuration * 500)
   }
 }
 

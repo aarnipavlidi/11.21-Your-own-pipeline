@@ -17,32 +17,18 @@ const Notification = () => { // Alustetaan "Notification" niminen komponentti, j
     borderWidth: 1
   }
 
-  // Jos alla oleva if-ehto totetuu eli "getNotificationContent" on yhtä kuin => "null", niin komponentti renderöi {..} sisällä olevan asian.
+  // Jos alla oleva if-ehto toteutuu eli "getNotificationContent" on yhtä kuin => "null", niin komponentti renderöi {..} sisällä olevan asian.
   if (getNotificationContent === null) {
     return null
   }
 
-  // Jos alla oleva if-ehto toteutuu eli "getNotificationContent.status" on yhtä kuin
-  // => "voted" sekä "getNotificationContent.message" on epätosi kuin => "null" niin
-  // komponentti renderöi {...} sisällä olevat asiat.
-  if (getNotificationContent.status === 'voted' && getNotificationContent.message != null) {
+  // Jos alla oleva if-ehto toteutuu eli "getNotificationContent" on muuta arvoa kuin => "null",
+  // niin komponentti renderöi {...} sisällä olevat asiat näkyviin käyttäjälle.
+  if (getNotificationContent != null) {
     return (
       <div style={style}>
         <div>
-          <h3>You have {getNotificationContent.status} for {getNotificationContent.message}. Thank you for voting! :)</h3>
-        </div>
-      </div>
-    )
-  }
-
-  // Jos alla oleva if-ehto toteutuu eli "getNotificationContent.status" on yhtä kuin
-  // => "added" sekä "getNotificationContent.message" on epätosi kuin => "null" niin
-  // komponentti renderöi {...} sisällä olevat asiat.
-  if (getNotificationContent.status === 'added' && getNotificationContent.message != null) {
-    return (
-      <div style={style}>
-        <div>
-          <h3>You have {getNotificationContent.status} for {getNotificationContent.message}. Thank you for adding! :)</h3>
+          <h3>{getNotificationContent}</h3>
         </div>
       </div>
     )

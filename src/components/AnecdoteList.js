@@ -5,7 +5,7 @@ import React from 'react'; // Komponentti ottaa "react" nimisen kirjaston käytt
 import { useSelector, useDispatch } from 'react-redux' // Komponentti ottaa "useSelector" ja "useDispatch" funktiot käyttöönsä => "react-redux" kirjaston kautta.
 import { likeValueButton } from '../reducers/anecdoteReducer' // Komponentti ottaa "likeValueButton" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 
-import { showNotificationVoted, hideNotification } from '../reducers/notificationReducer' // Komponentti ottaa "showNotificationVoted" ja "hideNotification" funktiot käyttöönsä, joka sijaitsee => "notificationReducer.js" tiedostossa.
+import { showNotificationMessage } from '../reducers/notificationReducer' // Komponentti ottaa "showNotificationMessage" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 
 const AnecdoteList = () => { // Alustetaan "AnecdoteList" niminen komponentti, joka suorittaa {...} sisällä olevat asiat.
   // Alustetaan muuttuja "anecdotes", joka suorittaa "useSelector(...)" funkion. Tämän avulla päästään
@@ -21,15 +21,11 @@ const AnecdoteList = () => { // Alustetaan "AnecdoteList" niminen komponentti, j
   // funktioon tehdään viittaus. Funktio saa myös käyttöönsä parametrin => "getCurrentValue" arvon,
   // jonka sisältä löytyy klikatun "content", "votes" sekä "id" objektien arvot. Funktion tarkoituksena
   // on toimia niin, että aina kun käyttäjä äänestää tiettyä tekstiä, niin funktio suorittaa kaksi (2)
-  // => "dispatch(...)" funktiota ja lopuksi 5 sek. kuluttua viimeisen funktion.
+  // => "dispatch(...)" funktiota. Funktiolla "showNotificationMessage(...)" löytyy myös kaksi (2)
+  // erilaista parametrin arvoa, jotka se saa käyttöönsä sovelluksen käytettäväksi.
   const voteButton = (getCurrentValue) => {
     dispatch(likeValueButton(getCurrentValue)) // Sovellus suorittaa funktion "likeValueButton(...)", joka saa parametrin "getCurrentValue" muuttujan arvon.
-    dispatch(showNotificationVoted(getCurrentValue.content)) // Sovellus suorittaa funktion "showNotificationVoted(...)", joka saa parametrin "getCurrentValue.content" muuttujan arvon.
-    console.log('Notification for voting specific content, is now visible! :)') // Tulostetaan kyseinen teksti konsoliin näkyviin.
-    setTimeout(() => { // Kun käyttäjä äänestää tiettyä arvoa, niin kyseinen funktio odottaa 5 sek. ja tämän jälkeen suoritetaan {...} sisällä oleva asia.
-      console.log('Notification is now hidden from the user! :)') // Tulostetaan kyseinen teksti konsoliin näkyviin.
-      dispatch(hideNotification()) // Sovellus suorittaa funktion "hideNotification()", joka piilottaa "popup" viestin pois näkyviltä.
-    }, 5000)
+    dispatch(showNotificationMessage(`You have voted for ${getCurrentValue.content}. Thank you for voting!`, 10)) // Sovellus suorittaa funktion "showNotificationVoted(...)", joka saa parametrin "getCurrentValue.content" muuttujan arvon.
   }
 
   // Tehtävää: "6.5*: anekdootit, step3" varten, olemme muokanneet koodia hieman, niin että
