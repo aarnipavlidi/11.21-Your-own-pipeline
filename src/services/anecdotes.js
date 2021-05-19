@@ -26,5 +26,20 @@ const createNewValueDatabase = async (getContent) => {
   return response.data // Funktio palauttaa takaisin käyttäjälle => "response.data" muuttujan arvon.
 }
 
+// Alustetaan muuttuja "updateValueDatabase", joka suorittaa {...} sisällä olevat asiat. Kun
+// alla oleva funktio on suoritettu, niin palautetaan data takaisin käyttäjälle näkyviin
+// "response.data" muuttujan avulla. Funktiota hyödynnetään => "AnecdoteList.js" tiedostossa.
+// Funktio saa myös käyttöönsä "getCurrentValue" parametrin arvon, eli aina kun käyttäjä
+// haluaa antaa uuden äänen (vote) tietylle tekstille, niin kyseisen tekstin arvot eli =>
+// "content", "votes" sekä "id" siirtyvät kyseisen parametrin alle.
+const updateValueDatabase = async (getCurrentValue) => {
+  const updateVotes = {
+    content: getCurrentValue.content,
+    votes: getCurrentValue.votes + 1
+  }
+  const response = await axios.put(`${url}/${getCurrentValue.id}`, updateVotes) // Alustetaan muuttuja "response", joka suorittaa kyseisen funktion kunnes siirtyy seuraavaan kohtaan sovelluksessa.
+  return response.data // Funktio palauttaa takaisin käyttäjälle => "response.data" muuttujan arvon.
+}
+
 // Viedään (export) alla olevat muuttujat sovelluksen käytettäväksi, jotta esim. "App.js" tiedosto pystyy suorittamaan kyseiset funktiot.
-export default { getValuesFromDatabase, createNewValueDatabase }
+export default { getValuesFromDatabase, createNewValueDatabase, updateValueDatabase }

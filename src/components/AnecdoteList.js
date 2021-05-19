@@ -18,14 +18,13 @@ const AnecdoteList = () => { // Alustetaan "AnecdoteList" niminen komponentti, j
   const dispatch = useDispatch()
 
   // Alustetaan muuttuja "voteButton", joka suorittaa {...} sisällä olevat asiat aina kun kyseiseen
-  // funktioon tehdään viittaus. Funktio saa myös käyttöönsä parametrien => "getClickedID" sekä
-  // "getClickedContent" arvot. Ota huomioon, että "getClickedID" on yhtä kuin => "results.id"
-  // ja "getClickedContent" on yhtä kuin => "results.content". Funktion tarkoituksena on toimia
-  // niin, että aina kun käyttäjä äänestää tiettyä tekstiä, niin funktio suorittaa kaksi (2)
+  // funktioon tehdään viittaus. Funktio saa myös käyttöönsä parametrin => "getCurrentValue" arvon,
+  // jonka sisältä löytyy klikatun "content", "votes" sekä "id" objektien arvot. Funktion tarkoituksena
+  // on toimia niin, että aina kun käyttäjä äänestää tiettyä tekstiä, niin funktio suorittaa kaksi (2)
   // => "dispatch(...)" funktiota ja lopuksi 5 sek. kuluttua viimeisen funktion.
-  const voteButton = (getClickedID, getClickedContent) => {
-    dispatch(likeValueButton(getClickedID)) // Sovellus suorittaa funktion "likeValueButton(...)", joka saa parametrin "id" muuttujan arvon.
-    dispatch(showNotificationVoted(getClickedContent)) // Sovellus suorittaa funktion "showNotificationVoted(...)", joka saa parametrin "getContent" muuttujan arvon.
+  const voteButton = (getCurrentValue) => {
+    dispatch(likeValueButton(getCurrentValue)) // Sovellus suorittaa funktion "likeValueButton(...)", joka saa parametrin "getCurrentValue" muuttujan arvon.
+    dispatch(showNotificationVoted(getCurrentValue.content)) // Sovellus suorittaa funktion "showNotificationVoted(...)", joka saa parametrin "getCurrentValue.content" muuttujan arvon.
     console.log('Notification for voting specific content, is now visible! :)') // Tulostetaan kyseinen teksti konsoliin näkyviin.
     setTimeout(() => { // Kun käyttäjä äänestää tiettyä arvoa, niin kyseinen funktio odottaa 5 sek. ja tämän jälkeen suoritetaan {...} sisällä oleva asia.
       console.log('Notification is now hidden from the user! :)') // Tulostetaan kyseinen teksti konsoliin näkyviin.
@@ -61,7 +60,7 @@ const AnecdoteList = () => { // Alustetaan "AnecdoteList" niminen komponentti, j
             <h2>{results.content}</h2>
           </div>
           <div>
-            <p>Content has been voted for total of {results.votes} times <button onClick={() => voteButton(results.id, results.content)}>vote</button></p>
+            <p>Content has been voted for total of {results.votes} times <button onClick={() => voteButton(results)}>vote</button></p>
           </div>
         </div>
       )}

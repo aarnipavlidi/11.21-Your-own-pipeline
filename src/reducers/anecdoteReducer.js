@@ -40,7 +40,7 @@ const reducer = (state = [], action) => {
     // alkuperäisen muuttujan arvot. Muussa tapauksessa renderöidään "updateValue" arvot.
     return state.map(results =>
       results.id !== getCurrentID ? results : updateValue)
-  }
+    }
 
   // Jos alla oleva if-ehto toteutuu, niin sovellus suorittaa {...} sisällä olevat asiat.
   // renderöidään takaisin, siis hetkisen "state" muuttujan taulukko => luomalla kopio
@@ -69,11 +69,19 @@ export const showValuesFromDatabase = () => {
 
 // Viedään muuttujan "likeValueButton" sisältö käytettäväksi, jotta esim. "index.js"
 // tiedosto pystyy hyödyntämään sovelluksen aikana. Aina kun kyseiseen funktioon
-// tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat.
-export const likeValueButton = (id) => {
-  return {
-    type: 'ADD_NEW_LIKE',
-    data: { id }
+// tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat. Alustetaan myös
+// muuttuja "response", joka suorittaa sen rivillä olevan funktion (await...), jonka
+// jälkeen suoritetaan vasta => "dispatch(...)" funktio. Ota myös huomoon, että
+// muuttujasta eli "getCurrentValue" löytyy kolme (3) erilaista objektia =>
+// "content", "votes" sekä "id" objektien arvot. Näitä hyödynnetään, kun sovellus
+// suorittaa "updateValueDatabase(...)" funktiota => "anecdotes.js" tiedostossa.
+export const likeValueButton = (getCurrentValue) => {
+  return async dispatch => {
+    const response = await anecdotesService.updateValueDatabase(getCurrentValue)
+    dispatch({
+      type: 'ADD_NEW_LIKE',
+      data: response
+    })
   }
 }
 

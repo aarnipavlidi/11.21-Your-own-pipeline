@@ -2,13 +2,18 @@
   "anecdotes": [
     {
       "content": "anekdootit ja backend, step1",
-      "id": "47145",
-      "votes": 0
+      "votes": 0,
+      "id": "47145"
     },
     {
       "content": "anekdootit ja backend, step2",
       "votes": 0,
       "id": "tiTVsCz"
+    },
+    {
+      "content": "anekdootit ja backend, step5",
+      "votes": 1,
+      "id": "5d3gQrl"
     }
   ]
 }
