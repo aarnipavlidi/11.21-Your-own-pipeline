@@ -1,8 +1,6 @@
 // This exercise has been commented by Aarni Pavlidi, if you have any questions or suggestions with the code,
 // then please contact me by sending email at me@aarnipavlidi.fi <3
 
-const generateRandomID = () => (100000 * Math.random()).toFixed(0) // Alustetaan muuttuja "generateRandomID", joka suorittaa kyseisen funktion, kun siihen tehdään viittaus.
-
 // Alustetaan muuttuja "reducer", joka suorittaa {...} sisällä olevat asiat. Muuttuja saa myös käyttöönsä parametrien => "state" ja "action" arvot.
 const reducer = (state = [], action) => {
   // Kun käyttäjä painaa jotain painiketta, niin alla oleva teksti tulostuu
@@ -46,7 +44,7 @@ const reducer = (state = [], action) => {
   // renderöidään takaisin, siis hetkisen "state" muuttujan taulukko => luomalla kopio
   // siitä, jonka perään tulee käyttäjän lisämää uusi arvo näkyviin sivulle.
   if (action.type === 'ADD_NEW_CONTENT') {
-    return [...state, action.data]
+    return [...state, action.response]
   }
 
   return state
@@ -74,20 +72,14 @@ export const likeValueButton = (id) => {
 
 // Viedään muuttujan "createNewValue" sisältö käytettäväksi, jotta esim. "index.js"
 // tiedosto pystyy hyödyntämään sovelluksen aikana. Aina kun kyseiseen funktioon
-// tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat. Ota myös
-// huomioon, kun luodaan uutta arvoa näkyville sivuun, niin alla oleva muuttuja
-// "content" täytyy olla sama, jos sen muuttaa esim. arvoon => "newContent", niin
-// käyttäjän lisäämää arvoa ei näy sivulla "oikein". Tämä johtuu siitä, että "state"
-// olettaa, että jokaisella arvolla löytyy kolme (3) erilaista objektia eli =>
-// state[0] = [content: xxx, id: xxx, votes: xxxx].
-export const createNewValue = (content) => {
+// tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat. Ota huomioon,
+// että kyseisen parametrin sisältä löytyy kaksi (2) objektia eli => "content" ja
+// "votes". Aikaisemmissa tehtävissä käytimme manuaalista id:n arvo generointia,
+// mutta koska olemme ottaneet käyttöön backendin, niin se generoi id:n puolestamme.
+export const createNewValue = (fetchValueFromDatabase) => {
   return {
     type: 'ADD_NEW_CONTENT',
-    data: {
-      content,
-      id: generateRandomID(),
-      votes: 0
-    }
+    response: fetchValueFromDatabase
   }
 }
 

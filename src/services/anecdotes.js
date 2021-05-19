@@ -8,9 +8,23 @@ const url = 'http://localhost:3001/anecdotes' // Alustetaan muuttuja "url", joka
 // oleva funktio on suoritettu, niin palautetaan data takaisin käyttäjälle näkyviin
 // "response.data" muuttujan avulla. Funktiota hyödynnetään => "App.js" tiedostossa.
 const getValuesFromDatabase = async () => {
-  const response = await axios.get(url)
-  return response.data
+  const response = await axios.get(url) // Alustetaan muuttuja "response", joka suorittaa kyseisen funktion kunnes siirtyy seuraavaan kohtaan sovelluksessa.
+  return response.data // Funktio palauttaa takaisin käyttäjälle => "response.data" muuttujan arvon.
+}
+
+// Alustetaan muuttuja "createNewValueDatabase", joka suorittaa {...} sisällä olevat asiat. Kun
+// alla oleva funktio on suoritettu, niin palautetaan data takaisin käyttäjälle näkyviin
+// "response.data" muuttujan avulla. Funktiota hyödynnetään => "AnecdoteForm.js" tiedostossa.
+// Funktio saa myös käyttöönsä "getContent" parametrin arvon, eli aina kun käyttäjä lisää
+// uuden arvon tietokantaan, niin sen hetkinen arvo tallentuu kyseisen parametrin alle.
+const createNewValueDatabase = async (getContent) => {
+  const valueStructure = { // Alustetaan muuttuja "valueStructure", joka saa {...} sisällä olevat objektit käyttöönsä.
+    content: getContent, // eli "valueStructure.content" on yhtä kuin => "getContent" muuttujan arvo.
+    votes: 0 // eli "valueStructure.votes" on yhtä kuin => "0" arvo.
+  }
+  const response = await axios.post(url, valueStructure) // Alustetaan muuttuja "response", joka suorittaa kyseisen funktion kunnes siirtyy seuraavaan kohtaan sovelluksessa.
+  return response.data // Funktio palauttaa takaisin käyttäjälle => "response.data" muuttujan arvon.
 }
 
 // Viedään (export) alla olevat muuttujat sovelluksen käytettäväksi, jotta esim. "App.js" tiedosto pystyy suorittamaan kyseiset funktiot.
-export default { getValuesFromDatabase }
+export default { getValuesFromDatabase, createNewValueDatabase }
