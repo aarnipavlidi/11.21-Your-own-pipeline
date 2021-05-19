@@ -7,8 +7,6 @@ import { useDispatch } from 'react-redux' // Komponentti ottaa "useDispatch" fun
 import { createNewValue } from '../reducers/anecdoteReducer' // Komponentti ottaa "createNewValue" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 import { showNotificationAdded, hideNotification } from '../reducers/notificationReducer' // Komponentti ottaa "showNotificationAdded" ja "hideNotification" funktiot käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 
-import anecdotesService from '../services/anecdotes' // Alustetaan muuttuja "anecdotesService", joka hyödyntää "anecdotes.js" (erillinen moduuli) tiedostoa eli => "./services/anecdotes.js".
-
 const AnecdoteForm = () => { // Alustetaan "AnecdoteForm" niminen komponentti, joka suorittaa {...} sisällä olevat asiat.
   // Alustetaan muuttuja "dispatch", joka suorittaa "useDispatch()" funktion. Tämän avulla sovellus
   // pystyy tekemään muutoksia "storeen" tallennettuihin  taulukon arvoihin. Lisää tästä täältä: https://react-redux.js.org/api/hooks#usedispatch
@@ -23,12 +21,7 @@ const AnecdoteForm = () => { // Alustetaan "AnecdoteForm" niminen komponentti, j
     // Ota myös huomioon, että alla olevan input:in => "name" arvo on yhtä kuin "newText", jos sitä ei olisi tai on väärä, niin tulee erroria! :)
     const getContent = event.target.newText.value // Alustetaan muuttuja "getContent", joka saa sen hetkisen arvon, minkä käyttäjä laittaa => input:in arvoksi.
     event.target.newText.value = '' // Sovellus tyhjentää kyseisen input:in arvon, sen jälkeen kun yllä oleva muuttuja on saanut arvon.
-    // Alustetaan muuttuja "getValueDatabase", joka suorittaa alla olevan funktion. Kun käyttäjä
-    // luo uuden arvon, niin se arvo tallennetaan tietokantaan ja kun se on suoritettu loppuun
-    // (await:in takia), niin muuttujan => "getValueDatabase" avulla me suoritetaan "dispatch(...)"
-    // funktio ja renderöidään takaisin käyttäjälle näkyviin juuri luotu arvo!
-    const getValueDatabase = await anecdotesService.createNewValueDatabase(getContent)
-    dispatch(createNewValue(getValueDatabase)) // Sovellus suorittaa funktion "createNewValue(...)", joka saa parametrin "getValueDatabase" muuttujan arvon.
+    dispatch(createNewValue(getContent)) // Sovellus suorittaa funktion "createNewValue(...)", joka saa parametrin "getContent" muuttujan arvon.
     console.log('Notification for adding new content, is now visible! :)') // Tulostetaan kyseinen teksti konsoliin näkyviin.
     dispatch(showNotificationAdded(getContent)) // Sovellus suorittaa funktion "showNotificationAdded(...)", joka saa parametrin "getContent" muuttujan arvon.
     setTimeout(() => { // Kun käyttäjä lisää uuden arvon, niin kyseinen funktio odottaa 5 sek. ja tämän jälkeen suoritetaan {...} sisällä oleva asia.

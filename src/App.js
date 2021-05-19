@@ -23,7 +23,7 @@ const App = () => { // Sovellus alkaa tästä...
     // joka sijaitsee => "services/anecdotes.js" tiedostossa. Funktio palauttaa takaisin pyyntöön
     // "response.data" muuttujan avulla, jonka avulla renderöidään tietokannan arvot käyttäjälle.
     dispatch(showValuesFromDatabase())
-  }, [dispatch])
+  }, [])
 
   // Sovellus renderöi (...) sisällä olevat asiat käyttäjälle näkyviin.
   return (

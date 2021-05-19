@@ -46,7 +46,7 @@ const reducer = (state = [], action) => {
   // renderöidään takaisin, siis hetkisen "state" muuttujan taulukko => luomalla kopio
   // siitä, jonka perään tulee käyttäjän lisämää uusi arvo näkyviin sivulle.
   if (action.type === 'ADD_NEW_CONTENT') {
-    return [...state, action.response]
+    return [...state, action.data]
   }
 
   return state
@@ -83,10 +83,13 @@ export const likeValueButton = (id) => {
 // että kyseisen parametrin sisältä löytyy kaksi (2) objektia eli => "content" ja
 // "votes". Aikaisemmissa tehtävissä käytimme manuaalista id:n arvo generointia,
 // mutta koska olemme ottaneet käyttöön backendin, niin se generoi id:n puolestamme.
-export const createNewValue = (fetchValueFromDatabase) => {
-  return {
-    type: 'ADD_NEW_CONTENT',
-    response: fetchValueFromDatabase
+export const createNewValue = (getValueContent) => {
+  return async dispatch => {
+    const response = await anecdotesService.createNewValueDatabase(getValueContent)
+    dispatch({
+      type: 'ADD_NEW_CONTENT',
+      data: response
+    })
   }
 }
 
