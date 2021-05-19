@@ -1,6 +1,8 @@
 // This exercise has been commented by Aarni Pavlidi, if you have any questions or suggestions with the code,
 // then please contact me by sending email at me@aarnipavlidi.fi <3
 
+import anecdotesService from '../services/anecdotes' // Alustetaan muuttuja "anecdotesService", joka hyödyntää "anecdotes.js" (erillinen moduuli) tiedostoa eli => "./services/anecdotes.js".
+
 // Alustetaan muuttuja "reducer", joka suorittaa {...} sisällä olevat asiat. Muuttuja saa myös käyttöönsä parametrien => "state" ja "action" arvot.
 const reducer = (state = [], action) => {
   // Kun käyttäjä painaa jotain painiketta, niin alla oleva teksti tulostuu
@@ -52,11 +54,16 @@ const reducer = (state = [], action) => {
 
 // Viedään muuttujan "showValuesFromDatabase" sisältö käytettäväksi, jotta esim. "index.js"
 // tiedosto pystyy hyödyntämään sovelluksen aikana. Aina kun kyseiseen funktioon
-// tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat.
-export const showValuesFromDatabase = (values) => {
-  return {
-    type: 'SHOW_ALL_VALUES',
-    data: values
+// tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat. Alustetaan myös
+// muuttuja "response", joka suorittaa  sen rivillä olevan funktion (await...), jonka
+// jälkeen suoritetaan vasta => "dispatch(...)" funktio.
+export const showValuesFromDatabase = () => {
+  return async dispatch => {
+    const response = await anecdotesService.getValuesFromDatabase()
+    dispatch({
+      type: 'SHOW_ALL_VALUES',
+      data: response
+    })
   }
 }
 

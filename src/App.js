@@ -3,7 +3,6 @@
 
 import React, { useEffect } from 'react'; // Sovellus ottaa "react" nimisen kirjaston käyttöönsä.
 
-import anecdotesService from './services/anecdotes' // Alustetaan muuttuja "anecdotesService", joka hyödyntää "anecdotes.js" (erillinen moduuli) tiedostoa eli => "./services/anecdotes.js".
 import { showValuesFromDatabase } from './reducers/anecdoteReducer' // Komponentti ottaa "showValuesFromDatabase" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 import { useDispatch } from 'react-redux' // Komponentti ottaa "useDispatch" funktion käyttöönsä => "react-redux" kirjaston kautta.
 
@@ -18,13 +17,13 @@ const App = () => { // Sovellus alkaa tästä...
   const dispatch = useDispatch()
 
   useEffect(() => { // Sovellus hyödyntää "useEffect(...)" funktiota ja suorittaa kyseisen funktion vain kerran eli haetaan halutut arvot erikseen tietokannasta.
-    // Haetaan kaikki nykyiset arvot tietokannasta "getValuesFromDatabase(...)" funktion avulla,
-    // jonka jälkeen funktio palauttaa takaisin => "response.data":n, jonka avulla sovellus
-    // hyödyntää "results" muuttujan kanssa eli suoritetaan "showValuesFromDatabase(...)"
-    // funktio, joka saa käyttöönsä kyseisen parametrin arvon.
-    anecdotesService
-      .getValuesFromDatabase().then(results => dispatch(showValuesFromDatabase(results)))
-  }, [])
+    // Kun käyttäjä saapuu sovellukseen, niin sovellus suorittaa => "dispatch(...)" funktion,
+    // joka sijaitsee => "anecdoteReducer.js" tiedostossa. Kyseinen funktio aiheuttaa sovelluksen
+    // aikana "ketjureaktion" eli sen jälkeen suoritetaan => "getValuesFromDatabase(...)" funktio,
+    // joka sijaitsee => "services/anecdotes.js" tiedostossa. Funktio palauttaa takaisin pyyntöön
+    // "response.data" muuttujan avulla, jonka avulla renderöidään tietokannan arvot käyttäjälle.
+    dispatch(showValuesFromDatabase())
+  }, [dispatch])
 
   // Sovellus renderöi (...) sisällä olevat asiat käyttäjälle näkyviin.
   return (
