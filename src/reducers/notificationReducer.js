@@ -22,6 +22,8 @@ const notificationReducer = (state = null, action) => {
   return state
 }
 
+let timeout // Alustetaan muuttuja "timeout" väliaikaisesti alla olevaa funktiota varten.
+
 // Viedään muuttujan "showNotificationMessage" sisältö käytettäväksi, jotta esim. "index.js"
 // tiedosto pystyy hyödyntämään sovelluksen aikana. Aina kun kyseiseen funktioon
 // tehdään viittaus, niin sovellus tekee {...} sisällä olevat asiat. Ota myös huomioon,
@@ -30,12 +32,20 @@ const notificationReducer = (state = null, action) => {
 // => "notificationDuration", jonka avulla määritellään "setTimeout(...)" funktiota
 // varten ajastin, että kuinka kauan "notifikaatio" on näkyvissä käyttäjälle.
 export const showNotificationMessage = (notificationMessage, notificationDuration) => {
+  // Tehtävää "6.21 anekdootit, loppuhuipennus" varten olemme muokanneet koodia niin,
+  // että aina kun käyttäjä äänestää tiettyä tekstiä, niin sen hetkinen ajastin eli
+  // "setTimeout(...)" funktio "resetoidaan". Tämän avulla varmistetaan sen, että
+  // aina viimeisin (uusin) notifikaatio kestää alkuperäisen keston ajan. Funktio
+  // on alustettu muuttujalle => timeout ja kyseinen muuttuja on alustettu
+  // väliaikaisena muuttujana (let) funktion ulkopuolelle. Lisää tietoa funktiosta
+  // löytyy täältä: https://www.w3schools.com/jsref/met_win_cleartimeout.asp
   return async dispatch => {
+    clearTimeout(timeout)
     dispatch({
       type: 'SHOW_NOTIFICATION',
       notification: notificationMessage
     })
-    setTimeout(() => {
+    timeout = setTimeout(() => {
       dispatch({
         type: 'HIDE_NOTIFICATION',
         notification: null
