@@ -42,7 +42,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "tranquil-hollows-65024"
           heroku_email: "me@aarnipavlidi.fi"
-          healthcheck: "https://tranquil-hollows-65024.herokuapp.com//health"
+          healthcheck: "https://tranquil-hollows-65024.herokuapp.com/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
       - name: action-slack
