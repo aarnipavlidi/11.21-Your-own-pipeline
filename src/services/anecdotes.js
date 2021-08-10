@@ -2,7 +2,7 @@
 // then please contact me by sending email at me@aarnipavlidi.fi <3
 
 import axios from 'axios' // Sovellus ottaa "axios" nimisen kirjaston käyttöönsä.
-const url = 'http://localhost:3001/anecdotes' // Alustetaan muuttuja "url", joka on yhtä kuin kyseisen tekstin arvo.
+const url = 'http://localhost:8000/api/anecdotes' // Alustetaan muuttuja "url", joka on yhtä kuin kyseisen tekstin arvo.
 
 // Alustetaan muuttuja "getValuesFromDatabase", joka suorittaa {...} sisällä olevat asiat. Kun alla
 // oleva funktio on suoritettu, niin palautetaan data takaisin käyttäjälle näkyviin
