@@ -40,7 +40,7 @@ const reducer = (state = [], action) => {
     // alkuperäisen muuttujan arvot. Muussa tapauksessa renderöidään "updateValue" arvot.
     return state.map(results =>
       results.id !== getCurrentID ? results : updateValue)
-    }
+  }
 
   // Jos alla oleva if-ehto toteutuu, niin sovellus suorittaa {...} sisällä olevat asiat.
   // renderöidään takaisin, siis hetkisen "state" muuttujan taulukko => luomalla kopio

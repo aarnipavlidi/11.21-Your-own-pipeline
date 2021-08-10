@@ -1,7 +1,7 @@
 // This exercise has been commented by Aarni Pavlidi, if you have any questions or suggestions with the code,
 // then please contact me by sending email at me@aarnipavlidi.fi <3
 
-import React, { useEffect } from 'react'; // Sovellus ottaa "react" nimisen kirjaston käyttöönsä.
+import React, { useEffect } from 'react' // Sovellus ottaa "react" nimisen kirjaston käyttöönsä.
 
 import { showValuesFromDatabase } from './reducers/anecdoteReducer' // Komponentti ottaa "showValuesFromDatabase" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 import { useDispatch } from 'react-redux' // Komponentti ottaa "useDispatch" funktion käyttöönsä => "react-redux" kirjaston kautta.

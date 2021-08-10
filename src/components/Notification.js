@@ -1,7 +1,7 @@
 // This exercise has been commented by Aarni Pavlidi, if you have any questions or suggestions with the code,
 // then please contact me by sending email at me@aarnipavlidi.fi <3
 
-import React from 'react'; // Komponentti ottaa "react" nimisen kirjaston käyttöönsä.
+import React from 'react' // Komponentti ottaa "react" nimisen kirjaston käyttöönsä.
 import { connect } from 'react-redux' // Komponentti ottaa "connect" funktion käyttöönsä => "react-redux" kirjaston kautta.
 
 const Notification = (props) => { // Alustetaan "Notification" niminen komponentti, joka suorittaa {...} sisällä olevat asiat.
@@ -22,7 +22,7 @@ const Notification = (props) => { // Alustetaan "Notification" niminen komponent
     // Jos alla oleva if-ehto toteutuu, eli "props.message" muuttuja on
     // epätosi kuin => "null", niin renderöidään takaisin (...) sisällä
     // olevat asiat. Elementti <h3> saa sen hetkisen "props.message" arvon.
-    if (props.message != null ) {
+    if (props.message !== null ) {
       return (
         <div style={style}>
           <h3>{props.message}</h3>

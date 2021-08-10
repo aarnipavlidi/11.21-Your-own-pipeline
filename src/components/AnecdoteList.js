@@ -1,7 +1,7 @@
 // This exercise has been commented by Aarni Pavlidi, if you have any questions or suggestions with the code,
 // then please contact me by sending email at me@aarnipavlidi.fi <3
 
-import React from 'react'; // Komponentti ottaa "react" nimisen kirjaston käyttöönsä.
+import React from 'react' // Komponentti ottaa "react" nimisen kirjaston käyttöönsä.
 import { useSelector, useDispatch } from 'react-redux' // Komponentti ottaa "useSelector" ja "useDispatch" funktiot käyttöönsä => "react-redux" kirjaston kautta.
 import { likeValueButton } from '../reducers/anecdoteReducer' // Komponentti ottaa "likeValueButton" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
 

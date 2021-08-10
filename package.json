@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.6.3",
     "axios": "^0.21.1",
     "json-server": "^0.16.3",
     "react": "^17.0.1",
@@ -19,9 +16,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "server": "node server.js"
+    "test": "jest",
+    "start-prod": "node server.js",
+    "eslint": "eslint .",
+    "test:e2e": "cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +40,10 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^8.2.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-react": "^7.24.0",
     "redux-devtools-extension": "^2.13.9"
   }
 }

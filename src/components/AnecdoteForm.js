@@ -1,7 +1,7 @@
 // This exercise has been commented by Aarni Pavlidi, if you have any questions or suggestions with the code,
 // then please contact me by sending email at me@aarnipavlidi.fi <3
 
-import React from 'react'; // Komponentti ottaa "react" nimisen kirjaston käyttöönsä.
+import React from 'react' // Komponentti ottaa "react" nimisen kirjaston käyttöönsä.
 import { connect } from 'react-redux' // Komponentti ottaa "connect" funktion käyttöönsä => "react-redux" kirjaston kautta.
 
 import { createNewValue } from '../reducers/anecdoteReducer' // Komponentti ottaa "createNewValue" funktion käyttöönsä, joka sijaitsee => "anecdoteReducer.js" tiedostossa.
@@ -27,8 +27,8 @@ const AnecdoteForm = (props) => { // Alustetaan "AnecdoteForm" niminen komponent
   return (
     <div>
       <form onSubmit={addValue}>
-        <input name='newText' />
-        <button type='submit'>Add new text</button>
+        <input id='inputValue' name='newText' />
+        <button id='inputButton' type='submit'>Add new text</button>
       </form>
     </div>
   )

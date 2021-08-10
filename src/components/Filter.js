@@ -1,7 +1,7 @@
 // This exercise has been commented by Aarni Pavlidi, if you have any questions or suggestions with the code,
 // then please contact me by sending email at me@aarnipavlidi.fi <3
 
-import React from 'react'; // Komponentti ottaa "react" nimisen kirjaston käyttöönsä.
+import React from 'react' // Komponentti ottaa "react" nimisen kirjaston käyttöönsä.
 import { connect } from 'react-redux' // Komponentti ottaa "connect" funktion käyttöönsä => "react-redux" kirjaston kautta.
 
 import { changeFilterValue } from '../reducers/filterReducer' // Komponentti ottaa "changeFilterValue" funktion käyttöönsä, joka sijaitsee => "filterReducer.js" tiedostossa.
