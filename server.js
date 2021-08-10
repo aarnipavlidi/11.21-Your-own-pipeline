@@ -14,7 +14,7 @@ server.use(jsonServer.rewriter({
   '/api/*': '/$1',
 }))
 
-app.get('/health', (req, res) => {
+server.get('/health', (req, res) => {
   res.send('ok')
 })
 
